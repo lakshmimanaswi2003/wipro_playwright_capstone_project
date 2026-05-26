@@ -8,7 +8,7 @@ test.describe("signup", ()=>{
   test.beforeEach( async({page})=>{
     loginpage = new Loginpage(page);
     await loginpage.navigationpage();
-  })
+  });
 
   //TCO1->>> testing the signup with same credentials
   test("signup with same credentials ",async({page})=>{
@@ -99,7 +99,7 @@ test.describe("signup", ()=>{
     await loginpage.clickloginbtn();
     await expect(await page.locator("#nameofuser")).toHaveText("Welcome adm@123");
     await loginpage.logout1();
-  })
+  });
 
 
   //TC10->>>Password Field Masking
@@ -108,25 +108,25 @@ test.describe("signup", ()=>{
     await loginpage.filluser("adm@123","adm@123");
     await loginpage.masking();
     await loginpage.close();
-  })
+  });
 
 
   //TC11->>>Home page load validation
   test("home page load validation",async({page})=>{
     await loginpage.load();
-  })
+  });
 
 
   //TC12->>>testing weather login is visible or not
   test("testing weather login is visible or not",async({page})=>{
     await loginpage.logvis()
-  })
+  });
 
 
   //TC13->>>testing weather signup is visible or not
   test("testing weather signup is visible or not",async({page})=>{
     await loginpage.signvis();
-  })
+  });
 
 
   //TC14->>>testing weather logout is visible or not
@@ -134,9 +134,9 @@ test.describe("signup", ()=>{
     await loginpage.clicklogin();
     await loginpage.filluser("adm@123","adm@123");
     await loginpage.clickloginbtn();
-    await expect(await page.locator("#nameofuser")).toHaveText("Welcome adm@123");
+    await expect(page.locator("#nameofuser")).toHaveText("Welcome adm@123");
     await loginpage.logoutvis();
-  })
+  });
 
 
   //TC15->>>testing weather welcome adm@123 username is visible or not
@@ -144,8 +144,8 @@ test.describe("signup", ()=>{
     await loginpage.clicklogin();
     await loginpage.filluser("adm@123","adm@123");
     await loginpage.clickloginbtn();
-    await expect(await page.locator("#nameofuser")).toHaveText("Welcome adm@123");
-  })
+    await expect(page.locator("#nameofuser")).toHaveText("Welcome adm@123");
+  });
 
 
 });
