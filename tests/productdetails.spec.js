@@ -107,4 +107,22 @@ test.describe("product details service",()=>{
     test("verify placeorderform is opening or not which contains details",async({page})=>{
         await details.placedetails();
     })
+
+
+    //TC18->>>verify the laptop discription is visible or not
+    test("verify the laptop discription is correct or not",async({page})=>{
+        await details.lapdes();
+    })
+
+
+    //TC19->>>verify weather the monitor description is visible or not
+    test("verify weather the monitor description is visible or not",async({page})=>{
+        await details.mondes();
+    })
+
+
+    //TC20->>>verifying weather about us details are visible or not
+    test("verifying weather about us details are visible or not",async({page})=>{
+        await details.aboutus();
+    })
 })

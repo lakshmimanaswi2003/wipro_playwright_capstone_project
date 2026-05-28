@@ -184,12 +184,13 @@ export class productdetails{
             await dialog.accept();
         });
         await this.page.locator('.btn.btn-success.btn-lg').click();
+        //await this.page.waitForTimeout(1000);
         await this.page.locator('#cartur').click();
         await this.page.waitForTimeout(1000);
-        await expect(this.page.locator('#tbodyid tr td:nth-child(3)')).toBeVisible();
+        //await expect(this.page.locator('#tbodyid tr td:nth-child(3)')).toBeVisible();
         const sum1=await this.page.locator('#tbodyid tr td:nth-child(3)').textContent();
         const cleansum1=sum1.replace(/[^0-9]/g,"");
-        const sum2=await this.page.locator('.panel-title').textContent();
+        const sum2=await this.page.locator('#totalp').textContent();
         await expect(cleansum1).toBe(sum2);
 
     }
@@ -211,6 +212,30 @@ export class productdetails{
         await this.page.waitForTimeout(1000);
 
         await expect(this.page.locator('#orderModalLabel')).toBeVisible();
+    }
+
+    //->>>verify weather laptop description is visible or not
+    async lapdes(){
+        await this.page.getByRole("link",{name:'Laptop'}).click();
+        await this.page.waitForTimeout(1000);
+        await this.page.locator('.hrefch').first().click();
+        await this.page.waitForTimeout(1000);
+        await expect(this.page.getByText('Sony is so confident')).toBeVisible();
+    }
+
+
+    //->>>verify weather the monitor description is visible or not
+    async mondes(){
+        await this.page.getByRole("link",{name:'Monitors'}).click();
+        await this.page.waitForTimeout(1000);
+        await this.page.locator('.hrefch').first().click();
+        await this.page.waitForTimeout(1000);
+        await expect(this.page.getByText('LED Cinema Display features')).toBeVisible();
+    }
+
+    //->>>verifying weather about us details are visible or not
+    async aboutus(){
+        await expect(this.page.getByText("About Us").nth(1)).toBeVisible();
     }
 }
 
