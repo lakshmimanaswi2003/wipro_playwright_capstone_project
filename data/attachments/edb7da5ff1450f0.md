@@ -1,0 +1,268 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: productdetails.spec.js >> product details service >> verify weather the product image is same or not
+- Location: tests/productdetails.spec.js:83:9
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: locator('#tbodyid tr').first()
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for locator('#tbodyid tr').first()
+
+```
+
+```yaml
+- navigation:
+  - link "PRODUCT STORE":
+    - /url: index.html
+    - img
+    - text: PRODUCT STORE
+  - list:
+    - listitem:
+      - link "Home (current)":
+        - /url: index.html
+    - listitem:
+      - link "Contact":
+        - /url: "#"
+    - listitem:
+      - link "About us":
+        - /url: "#"
+    - listitem:
+      - link "Cart":
+        - /url: "#"
+    - listitem:
+      - link "Log in":
+        - /url: "#"
+    - listitem
+    - listitem
+    - listitem:
+      - link "Sign up":
+        - /url: "#"
+- heading "Products" [level=2]
+- table:
+  - rowgroup:
+    - row "Pic Title Price x":
+      - columnheader "Pic"
+      - columnheader "Title"
+      - columnheader "Price"
+      - columnheader "x"
+  - rowgroup
+- heading "Total" [level=2]
+- heading [level=3]
+- button "Place Order"
+- heading "About Us" [level=4]
+- paragraph: We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.
+- heading "Get in Touch" [level=4]
+- paragraph: "Address: 2390 El Camino Real"
+- paragraph: "Phone: +440 123456"
+- paragraph: "Email: demo@blazemeter.com"
+- heading "PRODUCT STORE" [level=4]:
+  - img
+  - text: PRODUCT STORE
+- contentinfo:
+  - paragraph: Copyright © Product Store
+```
+
+# Test source
+
+```ts
+  34  |     }
+  35  | 
+  36  |     //->>>verify weather the product name is correctly displayed in homepage and the details
+  37  |     async namedisplay(){
+  38  |         const name1=await this.page.locator('.hrefch').first().textContent();
+  39  |         //console.log(name1);
+  40  |         await this.page.locator('.hrefch').first().click();
+  41  |         await expect(await this.page.locator('//*[@id="tbodyid"]/h2')).toBeVisible();
+  42  |         const name2=await this.page.locator('//*[@id="tbodyid"]/h2').textContent();
+  43  |         await expect(name1).toBe(name2);
+  44  |     }
+  45  | 
+  46  |     //->>>verifying the core details are same or not in both home page and details page
+  47  |     async coredisplay(){
+  48  |         await this.page.locator('.hrefch').first().click();
+  49  |         await expect(this.page.locator('//*[@id="more-information"]/p')).toBeVisible();
+  50  |         const text=await this.page.locator('//*[@id="more-information"]/p');
+  51  |         await expect(text).toContainText('1.5GHz octa-core');
+  52  |     }
+  53  | 
+  54  |     //->>>verifying the processor details are same or not in both home page and details page
+  55  |     async processordisplay(){
+  56  |         await this.page.locator('.hrefch').first().click();
+  57  |         await expect(this.page.locator('//*[@id="more-information"]/p')).toBeVisible();
+  58  |         const text=await this.page.locator('//*[@id="more-information"]/p');
+  59  |         await expect(text).toContainText('7420 processor');
+  60  |     }
+  61  | 
+  62  |     //->>>verigying the RAM details are same or not in both home page and details page
+  63  |     async ramdisplay(){
+  64  |         await this.page.locator('.hrefch').first().click();
+  65  |         await expect(this.page.locator('//*[@id="more-information"]/p')).toBeVisible();
+  66  |         const text=await this.page.locator('//*[@id="more-information"]/p');
+  67  |         await expect(text).toContainText(' 3GB of RAM.');
+  68  |     }
+  69  | 
+  70  |     //->>>verifying the internalstorage details are same or not in both homepage and details page
+  71  |     async internalstorage(){
+  72  |         await this.page.locator('.hrefch').first().click();
+  73  |         await expect(this.page.locator('//*[@id="more-information"]/p')).toBeVisible();
+  74  |         const text=await this.page.locator('//*[@id="more-information"]/p');
+  75  |         await expect(text).toContainText('32GB of internal storage');
+  76  |     }
+  77  | 
+  78  |     //->>>Verifying the image in the home page is same as the image in the details page
+  79  |     async imagedisplay(){
+  80  |         const image1=await this.page.locator(".card-img-top.img-fluid").first();
+  81  |         const image1src=await image1.getAttribute('src');
+  82  |         //console.log(image1src);
+  83  |         await this.page.locator('.card-img-top.img-fluid').first().click();
+  84  |         await expect(this.page.locator('//*[@id="imgp"]/div/img')).toBeVisible();
+  85  |         const image2src=await this.page.locator('//*[@id="imgp"]/div/img').getAttribute('src');
+  86  |         await expect(image1src).toBe(image2src);
+  87  |     }
+  88  | 
+  89  |     //->>>Verify weather the add cart button is visible or not
+  90  |     async addcart(){
+  91  |         await expect(this.page.locator('#cartur')).toBeVisible();
+  92  |     }
+  93  | 
+  94  |     //->>>verify weather addtocart in the details tab is there or not
+  95  |     async detailadd(){
+  96  |         await this.page.locator('.hrefch').first().click();
+  97  |         await expect(this.page.locator('.name')).toBeVisible();
+  98  |         await expect(this.page.locator('.btn.btn-success.btn-lg')).toBeVisible();
+  99  |         await this.page.locator('.btn.btn-success.btn-lg').click();
+  100 |     }
+  101 | 
+  102 |     //->>>verify weather the product is add to the cart or not
+  103 |     async cart(){
+  104 |         await this.page.locator('.hrefch').first().click();
+  105 |         await expect(this.page.locator('.name')).toBeVisible();
+  106 |         await expect(this.page.locator('.btn.btn-success.btn-lg')).toBeVisible();
+  107 |         this.page.once("dialog",async(dialog)=>{
+  108 |             console.log(dialog.message());//get text
+  109 |             await dialog.accept();
+  110 | 
+  111 |         });
+  112 |         await this.page.locator('.btn.btn-success.btn-lg').click();
+  113 |         await this.page.locator('#cartur').click();
+  114 |         await this.page.waitForTimeout(1000);
+  115 |         await expect(this.page.locator('#tbodyid tr td:nth-child(2)')).toHaveText('Samsung galaxy s6');
+  116 |     }
+  117 | 
+  118 |     //->>>verify weather the product image is same or not
+  119 |     async cartimg(){
+  120 |         const imagesrc=await this.page.locator('//*[@id="tbodyid"]/div[1]/div/a/img').getAttribute('src');
+  121 |         await this.page.locator('.hrefch').first().click();
+  122 |         await expect(this.page.locator('.name')).toBeVisible();
+  123 |         await expect(this.page.locator('.btn.btn-success.btn-lg')).toBeVisible();
+  124 |         await this.page.locator('.btn.btn-success.btn-lg').click();
+  125 |         this.page.once("dialog",async(dialog)=>{
+  126 |             console.log(dialog.message());//get text
+  127 |             await dialog.accept();
+  128 | 
+  129 |         });
+  130 |         await this.page.locator('#cartur').click();
+  131 |         await this.page.waitForTimeout(1000);
+  132 |         //await expect(this.page.locator('img[src="imgs/galaxy_s6.jpg"]')).toBeVisible();
+  133 |         const row = this.page.locator('#tbodyid tr');
+> 134 |         await expect(row.first()).toBeVisible();
+      |                                   ^ Error: expect(locator).toBeVisible() failed
+  135 |         const cartsrc=await this.page.locator('img[src="imgs/galaxy_s6.jpg"]').getAttribute('src');
+  136 |         await expect(imagesrc).toBe(cartsrc);
+  137 |     }
+  138 | 
+  139 |     //->>>verify weather the product price is displayed correctly or not on cart
+  140 |     async cartprice(){
+  141 |         const price=await this.page.locator('//*[@id="tbodyid"]/div[1]/div/div/h5').textContent();
+  142 |         const cleanprice1=price.replace(/[^0-9]/g,"");
+  143 |         await this.page.locator('.hrefch').first().click();
+  144 |         //await expect(this.page.locator('.name')).toBeVisible();
+  145 |         //await expect(this.page.locator('.btn.btn-success.btn-lg')).toBeVisible();
+  146 |         await this.page.once("dialog",async(dialog)=>{
+  147 |             console.log(dialog.message());//get text
+  148 |             await dialog.accept();
+  149 | 
+  150 |         });
+  151 |         await this.page.locator('.btn.btn-success.btn-lg').click();
+  152 |         await this.page.waitForTimeout(1000);
+  153 |         await this.page.locator('//*[@id="cartur"]').click();
+  154 |         await this.page.waitForTimeout(1000);
+  155 |         //await expect(this.page.locator('#tbodyid tr td:nth-child(3)')).toBeVisible();
+  156 |         const price2=await this.page.locator('#tbodyid tr td:nth-child(3)').textContent();
+  157 |         await expect(cleanprice1).toBe(price2);
+  158 | 
+  159 |     }
+  160 | 
+  161 |     //->>>verify weather the placeorder is visible or no in cart
+  162 |     async placeorder(){
+  163 |         await this.page.locator('.hrefch').first().click();
+  164 |         //await expect(this.page.locator('.name')).toBeVisible();
+  165 |         await this.page.waitForTimeout(1000);
+  166 |         await expect(this.page.locator('.btn.btn-success.btn-lg')).toBeVisible();
+  167 |         await this.page.once("dialog",async(dialog)=>{
+  168 |             console.log(dialog.message());//get text
+  169 |             await dialog.accept();
+  170 | 
+  171 |         });
+  172 |         await this.page.locator('.btn.btn-success.btn-lg').click();
+  173 |         await this.page.locator('//*[@id="cartur"]').click();
+  174 |         await expect(this.page.locator('//*[@id="page-wrapper"]/div/div[2]/button')).toBeVisible();
+  175 |     }
+  176 | 
+  177 |     //->>>verifying the total price
+  178 |     async totalprice(){
+  179 |         await this.page.locator('.hrefch').first().click();
+  180 |         await this.page.waitForTimeout(1000);
+  181 |         await expect(this.page.locator('//*[@id="tbodyid"]/div[2]/div/a')).toBeVisible();
+  182 |         await this.page.once("dialog",async(dialog)=>{
+  183 |             await expect(dialog.message()).toBe('Product added')
+  184 |             await dialog.accept();
+  185 |         });
+  186 |         await this.page.locator('.btn.btn-success.btn-lg').click();
+  187 |         await this.page.locator('#cartur').click();
+  188 |         await this.page.waitForTimeout(1000);
+  189 |         await expect(this.page.locator('#tbodyid tr td:nth-child(3)')).toBeVisible();
+  190 |         const sum1=await this.page.locator('#tbodyid tr td:nth-child(3)').textContent();
+  191 |         const cleansum1=sum1.replace(/[^0-9]/g,"");
+  192 |         const sum2=await this.page.locator('.panel-title').textContent();
+  193 |         await expect(cleansum1).toBe(sum2);
+  194 | 
+  195 |     }
+  196 | 
+  197 |     //->>>verify placeorderform is opening or not which contains details
+  198 |     async placedetails(){
+  199 |         await this.page.locator('.hrefch').first().click();
+  200 |         await this.page.waitForTimeout(1000);
+  201 |         await expect(this.page.locator('//*[@id="tbodyid"]/div[2]/div/a')).toBeVisible();
+  202 |         await this.page.locator('//*[@id="tbodyid"]/div[2]/div/a').click();
+  203 |         await this.page.once("dialog",async(dialog)=>{
+  204 |             await expect(dialog.message()).toBe('Product added')
+  205 |             await dialog.accept();
+  206 |         });
+  207 |         await this.page.locator('.btn.btn-success.btn-lg').click();
+  208 |         await this.page.locator('#cartur').click();
+  209 |         await this.page.waitForTimeout(1000);
+  210 |         await this.page.locator('.btn.btn-success').click();
+  211 |         await this.page.waitForTimeout(1000);
+  212 | 
+  213 |         await expect(this.page.locator('#orderModalLabel')).toBeVisible();
+  214 |     }
+  215 | }
+  216 | 
+  217 | 
+```
