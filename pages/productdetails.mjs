@@ -110,6 +110,7 @@ export class productdetails{
 
         });
         await this.page.locator('.btn.btn-success.btn-lg').click();
+        await this.page.waitForTimeout(1000);
         await this.page.locator('#cartur').click();
         await this.page.waitForTimeout(1000);
         await expect(this.page.locator('#tbodyid tr td:nth-child(2)')).toHaveText('Samsung galaxy s6');
@@ -177,17 +178,20 @@ export class productdetails{
     //->>>verifying the total price
     async totalprice(){
         await this.page.locator('.hrefch').first().click();
-        await this.page.waitForTimeout(1000);
-        await expect(this.page.locator('//*[@id="tbodyid"]/div[2]/div/a')).toBeVisible();
-        await this.page.once("dialog",async(dialog)=>{
-            await expect(dialog.message()).toBe('Product added')
-            await dialog.accept();
-        });
-        await this.page.locator('.btn.btn-success.btn-lg').click();
+        //await this.page.waitForTimeout(1000);
+        await expect(this.page.locator('.btn.btn-success.btn-lg')).toBeVisible();
+        await Promise.all([
+            this.page.waitForEvent('dialog').then(dialog => {
+                expect(dialog.message()).toBe('Product added');
+                return dialog.accept();
+            }),
+            this.page.locator('.btn.btn-success.btn-lg').click()
+        ]);
+        //await this.page.locator('.btn.btn-success.btn-lg').click();
         //await this.page.waitForTimeout(1000);
         await this.page.locator('#cartur').click();
-        await this.page.waitForTimeout(1000);
-        //await expect(this.page.locator('#tbodyid tr td:nth-child(3)')).toBeVisible();
+        //await this.page.waitForTimeout(1000);
+        await expect(this.page.locator('#tbodyid tr td:nth-child(3)')).toBeVisible();
         const sum1=await this.page.locator('#tbodyid tr td:nth-child(3)').textContent();
         const cleansum1=sum1.replace(/[^0-9]/g,"");
         const sum2=await this.page.locator('#totalp').textContent();
@@ -227,7 +231,7 @@ export class productdetails{
     //->>>verify weather the monitor description is visible or not
     async mondes(){
         await this.page.getByRole("link",{name:'Monitors'}).click();
-        await this.page.waitForTimeout(1000);
+        //await this.page.waitForTimeout(1000);
         await this.page.locator('.hrefch').first().click();
         await this.page.waitForTimeout(1000);
         await expect(this.page.getByText('LED Cinema Display features')).toBeVisible();
