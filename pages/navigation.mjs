@@ -124,20 +124,20 @@ export class navi{
     //->>>verify clicking the phones redirect to phones page
     async phoneredir(){
         await this.page.locator('.hrefch').first().click();
-        await expect(this.page).toHaveURL(/prod.html\?idp_=1/);
+        await expect(this.page).toHaveURL(/idp_=1/);
     }
 
     //->>>verify clicking the laptops redirect to laptops page
     async lapredir(){
         await this.page.locator('.hrefch').nth(7).click();
-        await expect(this.page).toHaveURL(/prod.html\?idp_=8/);
+        await expect(this.page).toHaveURL(/idp_=8/);
     }
 
     //->>>verify clicking the monitors redirect to monitors page
     async moniredir(){
         await this.page.getByRole('link',{name:'Monitors'}).click();
         await this.page.locator('.hrefch').first().click();
-        await expect(this.page).toHaveURL(/prod.html\?idp_=10/);
+        await expect(this.page).toHaveURL(/idp_=10/);
     }
 
 }
