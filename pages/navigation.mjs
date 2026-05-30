@@ -136,7 +136,7 @@ export class navi{
     //->>>verify clicking the monitors redirect to monitors page
     async moniredir(){
         await this.page.getByRole('link',{name:'Monitors'}).click();
-        await this.page.locator('.hrefch').first().click();
+        await this.page.locator('//*[@id="tbodyid"]/div[1]/div/div/h4/a').first().click();
         await expect(this.page).toHaveURL(/idp_=10/);
     }
 
