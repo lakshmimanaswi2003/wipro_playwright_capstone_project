@@ -128,8 +128,9 @@ export class productdetails{
             await dialog.accept();
 
         });
+        await this.page.waitForTimeout(1000); 
         await this.page.locator('#cartur').click();
-        await this.page.waitForTimeout(1000);
+        await this.page.waitForSelector('#tbodyid tr');
         //await expect(this.page.locator('img[src="imgs/galaxy_s6.jpg"]')).toBeVisible();
         const row = this.page.locator('#tbodyid tr');
         await expect(row.first()).toBeVisible();
@@ -232,9 +233,11 @@ export class productdetails{
     async mondes(){
         await this.page.getByRole("link",{name:'Monitors'}).click();
         //await this.page.waitForTimeout(1000);
-        await this.page.locator('.hrefch').first().click();
-        await this.page.waitForTimeout(1000);
-        await expect(this.page.getByText('LED Cinema Display features')).toBeVisible();
+        await this.page.getByRole('link',{name:'Apple monitor 24'}).click();
+        //await this.page.waitForNavigation();
+        //await this.page.waitForTimeout(10000);
+        console.log(await this.page.url());;
+        await expect(this.page.locator('//*[@id="more-information"]/p')).toContainText('LED Cinema Display features a 27-inch glossy LED-backlit ');
     }
 
     //->>>verifying weather about us details are visible or not
