@@ -93,7 +93,7 @@ test.describe("verify navigation services",async()=>{
 
 
     //TC15->>>Verify Modal login Does Not Affect Navigation
-    test('Verify Modal login Does Not Affect Navigation',async({page})=>{
+    test('Verify Modal login Does Not affect Navigation',async({page})=>{
         await navigat.affnavi();
     });
 
@@ -114,5 +114,6 @@ test.describe("verify navigation services",async()=>{
     test('verify clicking the monitors redirect to monitors page',async({page})=>{
         await navigat.moniredir();
     });
+
 
 });

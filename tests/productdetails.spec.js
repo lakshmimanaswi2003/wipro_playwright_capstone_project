@@ -20,7 +20,7 @@ test.describe("product details service",()=>{
 
 
     //TC03->>>erify Product Price is Displayed correctly in the homepage and the details page
-    test("erify Product Price is Displayed correctly in the homepage and the details page",async({page})=>{
+    test("verify Product Price is Displayed correctly in the homepage and the details page",async({page})=>{
         await details.correctdisplay();
     });
 
@@ -80,7 +80,7 @@ test.describe("product details service",()=>{
 
 
     //->>>TC13->>>verify weather the product image is same or not
-    test("verify weather the product image is same or not",async({page})=>{
+    test("verify weather the product image is same or not in cart",async({page})=>{
         await details.cartimg();
     });
 

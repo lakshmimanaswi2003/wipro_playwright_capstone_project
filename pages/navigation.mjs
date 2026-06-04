@@ -137,7 +137,7 @@ export class navi{
     async moniredir(){
         await this.page.getByRole('link',{name:'Monitors'}).click();
         await this.page.locator('//*[@id="tbodyid"]/div[1]/div/div/h4/a').first().click();
-        await expect(this.page).toHaveURL(/idp_=10/);
+        await expect(this.page).toHaveURL(/idp_=1/);
     }
 
 }

@@ -13,5 +13,8 @@
     "@types/node": "^25.9.1",
     "allure-commandline": "^2.41.0",
     "allure-playwright": "^3.9.0"
+  },
+  "dependencies": {
+    "firefox": "^0.0.1"
   }
 }
