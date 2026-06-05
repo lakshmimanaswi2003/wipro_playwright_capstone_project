@@ -1,5 +1,5 @@
 import {test,expect} from "@playwright/test";
-import {support} from "../pages/support.mjs";
+import {support} from "../pages/support-addon.mjs";
 
 test.describe("verifying support or contact services",()=>{
     let supp;

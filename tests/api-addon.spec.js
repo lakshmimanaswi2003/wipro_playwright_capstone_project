@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ApiPage } from '../pages/api.mjs';
+import { ApiPage } from '../pages/api-addon.mjs';
 
 let api;
 
